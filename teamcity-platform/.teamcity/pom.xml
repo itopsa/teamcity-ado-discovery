@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!--
+  Maven project for compiling / generating the Kotlin DSL locally and in the "Validate DSL" job:
+    cd .teamcity && mvn -B teamcity-configs:generate
+
+  If this fails to resolve, replace this file with the pom.xml your own TeamCity server generates
+  (any project > Versioned Settings > "Download settings in Kotlin format"), keeping
+  <sourceDirectory>${basedir}</sourceDirectory> so the platform/*.kt files are compiled.
+  Then set TEAMCITY_URL below to your server.
+-->
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <name>teamcity-platform Config DSL Script</name>
+  <groupId>teamcity-platform</groupId>
+  <artifactId>teamcity-platform_dsl</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <parent>
+    <groupId>org.jetbrains.teamcity</groupId>
+    <artifactId>configs-dsl-kotlin-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <repositories>
+    <repository>
+      <id>jetbrains-all</id>
+      <url>https://download.jetbrains.com/teamcity-repository</url>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+    <repository>
+      <id>teamcity-server</id>
+      <!-- TEAMCITY_URL: DSL for server-side plugins (e.g. Azure DevOps PR/status features) -->
+      <url>https://teamcity.example.com/app/dsl-plugins-repository</url>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>JetBrains</id>
+      <url>https://download.jetbrains.com/teamcity-repository</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <sourceDirectory>${basedir}</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <version>${kotlin.version}</version>
+        <configuration/>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>process-sources</phase>
+            <goals><goal>compile</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jetbrains.teamcity</groupId>
+        <artifactId>teamcity-configs-maven-plugin</artifactId>
+        <version>${teamcity.dsl.version}</version>
+        <configuration>
+          <format>kotlin</format>
+          <dstDir>target/generated-configs</dstDir>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jetbrains.teamcity</groupId>
+      <artifactId>configs-dsl-kotlin-latest</artifactId>
+      <version>${teamcity.dsl.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.teamcity</groupId>
+      <artifactId>configs-dsl-kotlin-plugins-latest</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>pom</type>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <version>${kotlin.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-script-runtime</artifactId>
+      <version>${kotlin.version}</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,4 @@
+# Tells teamcity-platform how to build and deploy this repo.
+type: function-app        # function-app | web-app
+azure_name: func-hello    # deployed as func-hello-dev, func-hello-prod, ...
+# enabled: false          # uncomment to stop the platform from picking this repo up

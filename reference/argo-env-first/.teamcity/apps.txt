@@ -1,0 +1,4 @@
+# name|url  (maintained by scripts/update-apps.sh — do not edit by hand)
+FA-ADMIN-CF-ARGO|https://dev.azure.com/myorg/Argo/_git/FA-ADMIN-CF-ARGO
+FA-AUDIT-CF-ARGO|https://dev.azure.com/myorg/Argo/_git/FA-AUDIT-CF-ARGO
+WA-BFFService-CF-ARGO|https://dev.azure.com/myorg/Argo/_git/WA-BFFService-CF-ARGO
