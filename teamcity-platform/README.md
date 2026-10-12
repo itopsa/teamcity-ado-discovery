@@ -53,6 +53,7 @@ TeamCity *deployment* configs, so the Deployments view shows what is running in 
 
 ## Docs
 
+- [docs/overview.md](docs/overview.md): one-page overview with a flow diagram. Start here.
 - [docs/repo-contract.md](docs/repo-contract.md): for app developers. How to structure a repo, per-stack examples, what gets packaged.
 - [docs/design.md](docs/design.md): rationale, patterns, why one Function App per repo, known limitations, references.
 
