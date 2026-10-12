@@ -23,6 +23,7 @@ with source in **Azure DevOps**. Owner works in DevOps/platform engineering.
   - `.teamcity/repos/<bu>/<app>.txt` — written by discovery: name|url|type|defaultBranch|azureName
   - `scripts/discover-repos.sh`, `scripts/bootstrap-apps.sh`
   - `tests/run-tests.sh` + `tests/mock_server.py` — 17 passing tests vs mock ADO/TeamCity + local git
+  - `docs/repo-contract.md` (developer guide), `docs/design.md` (rationale, patterns, known limitations)
 - `examples/hello-func/` — Python Azure Function using the repo contract (`ci.yaml`, `ci/test.sh`)
 - `reference/` — earlier work: env-first Argo mirror generator and per-repo REST discovery (not used going forward)
 
