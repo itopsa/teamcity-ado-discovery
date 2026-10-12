@@ -42,11 +42,19 @@ CREDIT                          existing BU project (legacy apps live here too)
         ├── DEV                 auto-deploys successful default-branch builds
         │   ├── Deploy all
         │   └── Deploy FA-HELLO
-        └── PROD                default-branch builds only; promote from a build that passed DEV
+        └── PROD                default-branch builds only
 ```
 
 Each deploy pulls the **same `app.zip`** the build produced (build once, deploy many). Deploy configs are
 TeamCity *deployment* configs, so the Deployments view shows what is running in each environment.
+
+> **Promotion order is not enforced yet.** Any successful default-branch build can be deployed to any environment,
+> including PROD, without passing DEV first. Restrict who can run PROD deploys with TeamCity roles (see *Day-to-day*).
+
+## Docs
+
+- [docs/repo-contract.md](docs/repo-contract.md): for app developers. How to structure a repo, per-stack examples, what gets packaged.
+- [docs/design.md](docs/design.md): rationale, patterns, why one Function App per repo, known limitations, references.
 
 ## Repo contract (`ci.yaml`, optional)
 
@@ -60,6 +68,8 @@ Optional hooks, run on the build agent from the repo root:
 
 - `ci/test.sh` runs before packaging. Exit non-zero to fail the build.
 - `ci/build.sh` must produce `app.zip`. Without it, the repo is zipped as-is, which is right for Python/Node Functions.
+
+Full details, including what gets packaged and examples for each stack, are in [docs/repo-contract.md](docs/repo-contract.md).
 
 ## One-time setup
 
